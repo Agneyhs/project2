@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agney HS | My Portfolio</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    color: #263247;
+    line-height: 1.6;
+}
+
+header {
+    background: #14213d;
+    color: white;
+    text-align: center;
+    padding: 35px 15px;
+}
+
+header h1 {
+    font-size: 38px;
+}
+
+nav {
+    background: #20365f;
+    padding: 15px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 8px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+nav a:hover {
+    color: #ffd166;
+}
+
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+section {
+    background: white;
+    padding: 25px;
+    margin: 22px 0;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #00000012;
+}
+
+h2 {
+    color: #20365f;
+    border-bottom: 2px solid #dce5f3;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #31558b;
+    margin-top: 18px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+ul {
+    padding-left: 25px;
+}
+
+.profile {
+    width: 180px;
+    height: 210px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 12px;
+    border: 4px solid #dce5f3;
+    background-color: #e7eefb;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.tag {
+    display: inline-block;
+    background: #e7eefb;
+    color: #20365f;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin: 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.card {
+    background: #f5f8fd;
+    border: 1px solid #dce5f3;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+/* CIE Assignment Button & Modal Styles */
+.cie-trigger-link {
+    display: inline-block;
+    margin-top: 10px;
+    background: #20365f;
+    color: #ffffff !important;
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.25s ease, transform 0.15s ease;
+    cursor: pointer;
+}
+
+.cie-trigger-link:hover {
+    background: #14213d;
+    transform: translateY(-2px);
+}
+
+.cie-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 33, 61, 0.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.cie-modal-overlay.open {
+    display: flex;
+}
+
+.cie-modal-box {
+    background: #ffffff;
+    max-width: 900px;
+    width: 100%;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.cie-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #dce5f3;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+}
+
+.cie-modal-header h2 {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cie-close-btn {
+    background: #e7eefb;
+    color: #20365f;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cie-close-btn:hover {
+    background: #20365f;
+    color: #ffffff;
+}
+
+.cie-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 15px;
+}
+
+.cie-item-card {
+    background: #f5f8fd;
+    border: 1px solid #dce5f3;
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cie-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    background: #dce5f3;
+    color: #14213d;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    width: fit-content;
+}
+
+.cie-open-btn {
+    display: inline-block;
+    margin-top: 14px;
+    text-align: center;
+    background: #2457a6;
+    color: #ffffff !important;
+    padding: 9px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cie-open-btn:hover {
+    background: #14213d;
+}
+
+.video-container {
+    margin-top: 12px;
+    background: #f5f8fd;
+    border: 1px solid #dce5f3;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.cie-video-player {
+    width: 100%;
+    max-width: 720px;
+    max-height: 450px;
+    border-radius: 8px;
+    display: block;
+    background: #000;
+}
+
+.video-fallback-note {
+    font-size: 13px;
+    color: #4a5568;
+    margin-top: 8px;
+}
+
+.video {
+    background: #f5f8fd;
+    padding: 18px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+iframe {
+    width: 100%;
+    max-width: 700px;
+    height: 315px;
+    border: none;
+    border-radius: 10px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.gallery-card {
+    overflow: hidden;
+    background: #f5f8fd;
+    border: 1px solid #dce5f3;
+    border-radius: 12px;
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+    background-color: #e7eefb;
+}
+
+.gallery-caption {
+    padding: 16px;
+}
+
+.gallery-caption h3 {
+    margin-top: 0;
+}
+
+a {
+    color: #2457a6;
+}
+
+footer {
+    background: #14213d;
+    color: white;
+    text-align: center;
+    padding: 22px;
+    margin-top: 30px;
+}
+
+@media(max-width: 600px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    iframe {
+        height: 220px;
+    }
+
+    nav a {
+        display: inline-block;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Agney HS</h1>
+    <p>Bachelor of Computer Applications (BCA(H))</p>
+    <p>RV University</p>
+    <p>Learning, Creating and Growing</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#about">About Me</a>
+    <a href="#academics">Academics</a>
+    <a href="#business">Business Communication</a>
+    <a href="#videos">Videos</a>
+    <a href="#blog">Blog</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home">
+    <div class="hero">
+
+        <img id="profile-photo"
+             src="profile.jpg"
+             onerror="this.onerror=null; this.src='profile.png';"
+             alt="Agney HS Professional Photo"
+             class="profile">
+
+        <div class="hero-text">
+            <h2>Welcome to My Portfolio</h2>
+            <h3>Agney HS</h3>
+
+            <p>
+                I am a BCA(H) student at RV University,
+                interested in technology, communication
+                and learning new skills.
+            </p>
+
+            <span class="tag">BCA(H) Student</span>
+            <span class="tag">RV University</span>
+            <span class="tag">Semester 3</span>
+        </div>
+    </div>
+
+    <h3>My Self-Introduction Video</h3>
+    <div class="video-container">
+        <video id="introVideo" class="cie-video-player" controls preload="metadata" playsinline>
+            <source src="video_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p class="video-fallback-note">
+            If the video does not play directly, <a href="video_1.mp4" target="_blank">click here to open the video in a new tab</a>.
+        </p>
+    </div>
+</section>
+
+<!-- ABOUT ME -->
+
+<section id="about">
+    <h2>About Me</h2>
+
+    <p>
+        My name is Agney HS, and I am pursuing a
+        Bachelor of Computer Applications (BCA(H))
+        at RV University. I am interested in technology
+        and learning how computers and software can
+        solve real-world problems.
+    </p>
+
+    <p>
+        During my academic journey, I have learned
+        programming languages such as C, Python and Java.
+        I have also studied data structures, databases,
+        web design, computer networks and operating systems.
+    </p>
+
+    <p>
+        Apart from technical knowledge, I believe
+        communication, teamwork and presentation skills
+        are important for personal and professional growth.
+        I enjoy learning new concepts and improving my skills.
+    </p>
+
+    <p>
+        My goal is to gain practical knowledge, become
+        a confident communicator and build a successful
+        career in the technology field.
+    </p>
+</section>
+
+<!-- ACADEMICS -->
+
+<section id="academics">
+    <h2>My Academic Journey</h2>
+
+    <h3>Semester 1 Subjects</h3>
+    <ul>
+        <li>Elements of Linear Algebra</li>
+        <li>Programming with C</li>
+        <li>Web and UX Design</li>
+        <li>Digital Logic</li>
+        <li>Linux and Shell Programming</li>
+        <li>Structured Innovation with Design Thinking</li>
+        <li>Universal Human Values</li>
+    </ul>
+
+    <h3>Semester 2 Subjects</h3>
+    <ul>
+        <li>Set Theory</li>
+        <li>Python Programming for Data Analytics</li>
+        <li>Data Structures Using C</li>
+        <li>Operating Systems</li>
+        <li>Computer Organization</li>
+        <li>English Communication</li>
+        <li>Entrepreneurial Mindset</li>
+        <li>Introduction to Version Control</li>
+    </ul>
+
+    <h3>Semester 3 Subjects</h3>
+    <ul>
+        <li>Numerical Methods</li>
+        <li>Object Oriented Programming with Java</li>
+        <li>Database Management Systems</li>
+        <li>Computer Networks</li>
+        <li>Yoga and Well Being</li>
+    </ul>
+
+    <h3>Minor Subjects</h3>
+    <ul>
+        <li>Minor 1: Basis of Business</li>
+        <li>Minor 2: Business Communication</li>
+    </ul>
+
+    <h3>University Elective</h3>
+    <ul>
+        <li>Entrepreneurial Finance and Funding Strategies</li>
+    </ul>
+</section>
+
+<!-- BUSINESS COMMUNICATION -->
+
+<section id="business">
+    <h2>SB1022 – Business Communication</h2>
+
+    <p>
+        Business Communication helps me develop
+        professional communication skills for academic
+        and workplace situations.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Module 1: Communication, Types and Barriers</h3>
+            <p>I learned the communication process,
+            different types of communication and barriers
+            that can cause misunderstanding.</p>
+        </div>
+
+        <div class="card">
+            <h3>Module 2: Non-Verbal Communication</h3>
+            <p>I learned about body language, eye contact,
+            facial expressions, gestures and posture.</p>
+        </div>
+
+        <div class="card">
+            <h3>Module 3: Business Writing</h3>
+            <p>I learned how to write professional emails,
+            messages and memos using proper formats.</p>
+        </div>
+
+        <div class="card">
+            <h3>Module 4: Business Reports</h3>
+            <p>I learned how to prepare organised reports
+            using headings, facts and recommendations.</p>
+        </div>
+
+        <div class="card">
+            <h3>Module 5: Debates and Discussions</h3>
+            <p>I learned to express opinions, listen to
+            others and participate respectfully in discussions.</p>
+        </div>
+
+        <div class="card">
+            <h3>Module 6: Business Presentations</h3>
+            <p>I learned how to organise presentation content,
+            speak clearly and maintain eye contact.</p>
+        </div>
+
+    </div>
+
+    <h3>Professional Vocabulary</h3>
+
+    <ul>
+        <li><b>Clarity:</b> I use clarity when explaining my ideas.</li>
+        <li><b>Concise:</b> I keep my emails concise and meaningful.</li>
+        <li><b>Collaboration:</b> Collaboration helps our team complete tasks.</li>
+        <li><b>Feedback:</b> I use feedback to improve my presentations.</li>
+        <li><b>Persuade:</b> I use facts to persuade my audience.</li>
+    </ul>
+
+    <h3>Assignments and Activities</h3>
+    <p>
+        <b>Group 2 – CIE 4 Startup Project (SkillBridge):</b> Explore our complete business feasibility report, pitch presentation, video walkthrough, and interactive startup website prototype.
+    </p>
+
+    <a href="#cie4-deliverables" class="cie-trigger-link" onclick="openCieModal(event)">
+        Open CIE 4 Assignment Deliverables (4 Files)
+    </a>
+</section>
+
+<!-- CIE 4 DELIVERABLES MODAL -->
+<div id="cieModal" class="cie-modal-overlay" onclick="closeCieModalOnOutside(event)">
+    <div class="cie-modal-box">
+        <div class="cie-modal-header">
+            <h2>Group 2 – SB1022 CIE 4 Deliverables (SkillBridge)</h2>
+            <button class="cie-close-btn" onclick="closeCieModal()" title="Close">&times;</button>
+        </div>
+        <p>
+            <b>Project Overview:</b> SkillBridge is a two-sided micro-internship marketplace connecting pre-screened college students with SMEs for paid, 4-week, deliverable-driven projects. Select any of the four deliverables below:
+        </p>
+
+        <div class="cie-items-grid">
+            <!-- 1. PDF Report -->
+            <div class="cie-item-card">
+                <div>
+                    <span class="cie-badge">1. Business Feasibility Report (PDF)</span>
+                    <h3>Comprehensive Feasibility Dossier</h3>
+                    <p>44-page institutional report covering market analysis, unit economics, escrow vaults, matching algorithm, and 24-month roadmap.</p>
+                </div>
+                <a href="GROUP 2 SB1022 CIE4 REPORT.pdf" target="_blank" class="cie-open-btn">
+                    Open Feasibility Report (PDF)
+                </a>
+            </div>
+
+            <!-- 2. Presentation PPTX -->
+            <div class="cie-item-card">
+                <div>
+                    <span class="cie-badge">2. Pitch Deck (PPTX)</span>
+                    <h3>SkillBridge Executive Presentation</h3>
+                    <p>14-slide presentation covering the Dual Bottleneck, 4 project tracks, revenue streams, GTM flywheel, and strategic verdict.</p>
+                </div>
+                <a href="GROUP 2 SB1022 CIE4 PPT.pptx" target="_blank" class="cie-open-btn">
+                    Open Presentation Deck (PPTX)
+                </a>
+            </div>
+
+            <!-- 3. Startup Website -->
+            <div class="cie-item-card">
+                <div>
+                    <span class="cie-badge">3. Startup Prototype (HTML)</span>
+                    <h3>SkillBridge Marketplace Website</h3>
+                    <p>Interactive web platform prototype showcasing student and SME portals, 4-week milestone cadence, and onboarding flows.</p>
+                </div>
+                <a href="startup group 2 SB1022 CIE 4 WEBSITE.html" target="_blank" class="cie-open-btn">
+                    Launch Startup Website
+                </a>
+            </div>
+
+            <!-- 4. Video Walkthrough -->
+            <div class="cie-item-card">
+                <div>
+                    <span class="cie-badge">4. Video Presentation (MP4)</span>
+                    <h3>SkillBridge Pitch & Demo Video</h3>
+                    <p>Video overview and platform walkthrough demonstrating how students and SMEs collaborate on micro-internships.</p>
+                    <video id="cieVideo" class="cie-video-player" controls preload="metadata">
+                        <source src="video_1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <a href="video_1.mp4" target="_blank" class="cie-open-btn">
+                    Open Video in Full Tab
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIDEOS -->
+
+<section id="videos">
+    <h2>Recommended Videos and TED Talk</h2>
+
+    <div class="video">
+        <h3>Video 1</h3>
+        <iframe src="https://www.youtube.com/embed/9LhLjpsstPY"
+                title="Recommended Video 1" allowfullscreen></iframe>
+        <p><a href="https://www.youtube.com/watch?v=9LhLjpsstPY"
+              target="_blank">Watch Video</a></p>
+        <p><b>My Takeaway:</b> Effective communication requires
+        clear messages and careful listening.</p>
+    </div>
+
+    <div class="video">
+        <h3>Video 2</h3>
+        <iframe src="https://www.youtube.com/embed/Q6X80IWdS6s"
+                title="Recommended Video 2" allowfullscreen></iframe>
+        <p><a href="https://www.youtube.com/watch?v=Q6X80IWdS6s"
+              target="_blank">Watch Video</a></p>
+        <p><b>My Takeaway:</b> Preparation and organising thoughts
+        can help me communicate with confidence.</p>
+    </div>
+
+    <div class="video">
+        <h3>Video 3</h3>
+        <iframe src="https://www.youtube.com/embed/RWZluriQUzE"
+                title="Recommended Video 3" allowfullscreen></iframe>
+        <p><a href="https://www.youtube.com/watch?v=RWZluriQUzE"
+              target="_blank">Watch Video</a></p>
+        <p><b>My Takeaway:</b> I learned the importance of being
+        aware of how I communicate.</p>
+    </div>
+
+    <div class="video">
+        <h3>Video 4</h3>
+        <iframe src="https://www.youtube.com/embed/j4J6B_ajGP4"
+                title="Recommended Video 4" allowfullscreen></iframe>
+        <p><a href="https://www.youtube.com/watch?v=j4J6B_ajGP4"
+              target="_blank">Watch Video</a></p>
+        <p><b>My Takeaway:</b> Respectful communication and choosing
+        suitable words are important.</p>
+    </div>
+
+    <div class="video">
+        <h3>TED Talk: How to Speak So That People Want to Listen</h3>
+        <p><b>Speaker:</b> Julian Treasure</p>
+        <p>
+            <a href="https://www.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen"
+               target="_blank">Watch TED Talk</a>
+        </p>
+        <p><b>My Takeaway:</b> We should speak honestly and kindly
+        and use our voice thoughtfully.</p>
+    </div>
+</section>
+
+<!-- BLOG -->
+
+<section id="blog">
+    <h2>My Blog</h2>
+
+    <div class="card">
+        <h3>My Learning Journey as a BCA(H) Student</h3>
+
+        <p>
+            My BCA(H) journey has helped me understand programming,
+            databases, web design and problem-solving. Every
+            semester introduces new concepts and practical activities.
+        </p>
+
+        <p>
+            I have also understood that communication and teamwork
+            are important along with technical knowledge. I want
+            to continue learning and improving my skills.
+        </p>
+    </div>
+</section>
+
+<!-- GALLERY -->
+
+<section id="gallery">
+    <h2>My Gallery</h2>
+
+    <p>Some memorable experiences and activities from my college life.</p>
+
+    <div class="gallery-grid">
+
+        <div class="gallery-card">
+            <img src="1.jpg" onerror="this.onerror=null; this.src='1.png';" alt="Classroom presentation">
+            <div class="gallery-caption">
+                <h3>Classroom Presentation</h3>
+                <p>
+                    I gave a presentation about the Indian Premier
+                    League (IPL), sharing information and ideas
+                    with my classmates. This experience helped me
+                    improve my public speaking and presentation skills.
+                </p>
+            </div>
+        </div>
+
+        <div class="gallery-card">
+            <img src="2.jpg" onerror="this.onerror=null; this.src='2.png';" alt="Universal Human Values school visit">
+            <div class="gallery-caption">
+                <h3>Universal Human Values – School Visit</h3>
+                <p>
+                    As part of our Universal Human Values course,
+                    we visited a school and interacted with the
+                    students. It was a meaningful experience that
+                    helped us understand kindness, respect and sharing.
+                </p>
+            </div>
+        </div>
+
+        <div class="gallery-card">
+            <img src="3.jpg" onerror="this.onerror=null; this.src='3.png';" alt="College events">
+            <div class="gallery-caption">
+                <h3>College Events and Activities</h3>
+                <p>
+                    This photograph captures one of the different
+                    events held at our college. Participating in
+                    college events gives me opportunities to enjoy
+                    campus life, meet people and learn beyond class.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+    <h2>Contact Me</h2>
+
+    <p><b>Name:</b> Agney HS</p>
+    <p><b>College:</b> RV University</p>
+    <p><b>Course:</b> BCA(H)</p>
+
+    <p>
+        <b>College Email:</b>
+        <a href="mailto:agneyrvu@rvu.edu.in">
+            agneyrvu@rvu.edu.in
+        </a>
+    </p>
+
+    <p><b>LinkedIn:</b> Add your LinkedIn profile link</p>
+    <p><b>Instagram:</b> Add your Instagram profile link</p>
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Agney HS | RV University | BCA(H) Portfolio</p>
+</footer>
+
+<script>
+function openCieModal(event) {
+    event.preventDefault();
+    document.getElementById('cieModal').classList.add('open');
+}
+
+function closeCieModal() {
+    document.getElementById('cieModal').classList.remove('open');
+    const vid = document.getElementById('cieVideo');
+    if (vid) vid.pause();
+}
+
+function closeCieModalOnOutside(event) {
+    if (event.target.id === 'cieModal') {
+        closeCieModal();
+    }
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeCieModal();
+    }
+});
+</script>
+
+</body>
+</html>
